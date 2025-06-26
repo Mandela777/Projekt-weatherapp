@@ -27,7 +27,7 @@ pipeline {
 
         stage('Budowanie obrazu Docker') {
             steps {
-                sh "docker build -t pogoda ${env.WORKSPACE}"
+                sh 'docker build -t pogoda .'
             }
         }
 
