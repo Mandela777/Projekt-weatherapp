@@ -13,7 +13,7 @@ RUN apt-get update && \
     apt-get install -y docker.io rsync && \
     apt-get clean
 
-USER Jenkins
+USER jenkins
 
 
 
