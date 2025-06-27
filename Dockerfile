@@ -1,19 +1,19 @@
-FROM node:20 AS builder
+FROM jenkins/jenkins:lts
 
-WORKDIR /app
-COPY . .
+USER root
 
-RUN npm install
-RUN npm run build
+ARG DOCKER_GID=999
 
-# Serwer np. z 'serve' (albo Vite preview)
-RUN npm install -g serve
+# Dodaj grupę docker i dodaj użytkownika jenkins do tej grupy
+RUN groupadd -g ${DOCKER_GID} docker && \
+    usermod -aG docker jenkins
 
-FROM node:20
+# Zainstaluj Docker CLI i rsync
+RUN apt-get update && \
+    apt-get install -y docker.io rsync && \
+    apt-get clean
 
-WORKDIR /app
-COPY --from=builder /app/dist ./dist
+USER Jenkins
 
-EXPOSE 5000
-CMD ["serve", "-s", "dist", "-l", "5000"]
+
 
