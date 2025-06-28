@@ -10,11 +10,17 @@ pipeline {
     }
 
     stages {
+
+        stage('Czyszczenie') {
+            steps {
+                sh 'rm -rf ${BUILD_DIR} || true'
+            }
+        }
+
         stage('Przygotowanie') {
             steps {
-                // Tworzymy katalog na build, kopiujemy tam repo
                 sh "mkdir -p ${BUILD_DIR}"
-                sh "rsync -a \$WORKSPACE/ ${BUILD_DIR}/"
+                sh "rsync -a ${WORKSPACE}/ ${BUILD_DIR}/"
             }
         }
 
