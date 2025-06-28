@@ -14,7 +14,7 @@ function App() {
   async function pobierzPogode(miasto) {
     try {
       setFadeIn(false);
-      const response = await fetch(`http://localhost:5000/pogoda?miasto=${miasto}`);
+      const response = await fetch(`http://localhost:3000/pogoda?miasto=${miasto}`);
       const dane = await response.json();
       setPogoda(`Pogoda w ${dane.miasto}: ${dane.temp}°C, ${dane.opis}`);
       setIkona(`https://openweathermap.org/img/wn/${dane.ikona}@2x.png`);
